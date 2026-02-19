@@ -11,7 +11,9 @@ Base = declarative_base()
 
 # Create tables
 def init_db():
-    from backend.models.user_model import User  # Import here to register with Base
+    from backend.models.user_model import User  # noqa: F401
+    from backend.models.life_event_model import LifeEvent  # noqa: F401
+    from backend.models.task_model import Task  # noqa: F401
     Base.metadata.create_all(bind=engine)
 
 if __name__ == "__main__":

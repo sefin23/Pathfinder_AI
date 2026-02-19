@@ -154,3 +154,6 @@ cython_debug/
 test.db
 .qodo/
 .agent/
+
+# Sandbox folder
+test_backend/
