@@ -31,8 +31,18 @@ class Task(Base):
     updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc),
                         onupdate=lambda: datetime.now(timezone.utc))
 
-    # Foreign key — every task belongs to a life event
+    # Foreign key — every task belongs to a life event (even subtasks)
     life_event_id = Column(Integer, ForeignKey("life_events.id"), nullable=False)
+
+    # Self-referencing foreign key — nullable means this is a top-level task
+    # If set, this task is a subtask of parent_id
+    parent_id = Column(Integer, ForeignKey("tasks.id"), nullable=True)
 
     # Relationships
     life_event = relationship("LifeEvent", back_populates="tasks")
+
+    # parent → access the parent Task object from a subtask
+    parent = relationship("Task", remote_side=[id], back_populates="children")
+
+    # children → access all direct subtasks of this task
+    children = relationship("Task", back_populates="parent", cascade="all, delete-orphan")

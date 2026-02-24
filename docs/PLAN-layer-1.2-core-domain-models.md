@@ -81,8 +81,8 @@ starting a job, graduating, etc. We need models that capture:
 
 ## Verification
 
-- [ ] Server starts without errors
-- [ ] Can create a user, then a life event for that user
-- [ ] Can create tasks under a life event
-- [ ] Can update task status
-- [ ] All data persists in SQLite
+- [x] Server starts without errors
+- [x] Can create a user, then a life event for that user
+- [x] Can create tasks under a life event
+- [x] Can update task status
+- [x] All data persists in SQLite

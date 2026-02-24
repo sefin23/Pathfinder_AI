@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pathfinder AI — My Life Events</title>
+    <meta
+      name="description"
+      content="Pathfinder AI helps you manage complex life events step by step."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Top Navigation -->
+    <nav class="topnav">
+      <span class="brand">🧭 Pathfinder AI</span>
+      <span class="breadcrumb">/ Life Events</span>
+    </nav>
+
+    <div class="container">
+      <!-- Page Header -->
+      <div class="mt-16">
+        <h1 class="page-title">My Life Events</h1>
+        <p class="page-subtitle">
+          Each event is a situation you're navigating. Click one to see its
+          tasks.
+        </p>
+      </div>
+
+      <!-- Create Life Event Form -->
+      <div class="form-panel" id="create-event-panel">
+        <h2>+ Create a New Life Event</h2>
+
+        <div class="form-group">
+          <label for="event-title">Event Title *</label>
+          <input
+            type="text"
+            id="event-title"
+            placeholder="e.g. Moving to Bangalore for my first job"
+            maxlength="120"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="event-desc">Description (optional)</label>
+          <textarea
+            id="event-desc"
+            placeholder="Briefly describe your situation — what's happening and what feels overwhelming?"
+          ></textarea>
+        </div>
+
+        <!-- user_id hardcoded to 1 for Layer 1.4 (no auth yet) -->
+        <input type="hidden" id="event-user-id" value="1" />
+
+        <button
+          class="btn btn--primary"
+          id="btn-create-event"
+          onclick="createLifeEvent()"
+        >
+          Create Event
+        </button>
+      </div>
+
+      <!-- Life Events List -->
+      <div class="flex-between mt-8" style="margin-bottom: 14px">
+        <h2 style="font-size: 1rem; font-weight: 600">Active Events</h2>
+        <span class="text-muted" id="event-count"></span>
+      </div>
+
+      <div id="events-list">
+        <!-- Populated by JS -->
+        <div class="empty-state" id="events-empty">
+          <div class="empty-icon">📋</div>
+          <p>No life events yet.<br />Create your first one above.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Google Fonts already loaded above; JS logic below -->
+    <script src="js/events.js"></script>
+  </body>
+</html>

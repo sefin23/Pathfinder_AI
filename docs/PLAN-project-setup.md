@@ -18,14 +18,14 @@ backend/
 
 ## Tasks
 
-- [ ] Create `backend` directory
-- [ ] Create `main.py` (FastAPI app instance)
-- [ ] Create `database.py` (SQLAlchemy setup)
-- [ ] Create `models.py` (Empty for now, just structure)
-- [ ] Create `schemas.py` (Empty for now)
-- [ ] Verify environment works (`uvicorn backend.main:app --reload`)
+- [x] Create `backend` directory
+- [x] Create `main.py` (FastAPI app instance)
+- [x] Create `database.py` (SQLAlchemy setup)
+- [x] Create `models.py` (Empty for now, just structure)
+- [x] Create `schemas.py` (Empty for now)
+- [x] Verify environment works (`uvicorn backend.main:app --reload`)
 
 ## Verification
 
-- [ ] `uvicorn backend.main:app` starts without errors.
-- [ ] `curl localhost:8000/docs` returns 200 OK.
+- [x] `uvicorn backend.main:app` starts without errors.
+- [x] `curl localhost:8000/docs` returns 200 OK.

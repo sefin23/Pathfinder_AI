@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pathfinder AI — Tasks</title>
+    <meta name="description" content="View and manage tasks for your life event." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <nav class="topnav">
+        <span class="brand">🧭 Pathfinder AI</span>
+        <span class="breadcrumb">
+            / <a href="index.html">Life Events</a>
+            / <span id="nav-event-title">Loading…</span>
+        </span>
+    </nav>
+
+    <div class="container">
+
+        <!-- Page Header (populated by JS) -->
+        <div class="mt-16">
+            <h1 class="page-title" id="event-title-heading">Loading event…</h1>
+            <p class="page-subtitle" id="event-desc-text"></p>
+        </div>
+
+        <!-- Add Task Form -->
+        <div class="form-panel" id="create-task-panel">
+            <h2>+ Add a Task</h2>
+
+            <div class="form-group">
+                <label for="task-title">Task Title *</label>
+                <input
+                    type="text"
+                    id="task-title"
+                    placeholder="e.g. Find accommodation in Bangalore"
+                    maxlength="160"
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="task-desc">Description (optional)</label>
+                <textarea
+                    id="task-desc"
+                    placeholder="Any notes or details?"
+                ></textarea>
+            </div>
+
+            <div style="display:flex; gap:14px; flex-wrap:wrap;">
+                <div class="form-group" style="flex:1; min-width:140px;">
+                    <label for="task-priority">Priority</label>
+                    <select id="task-priority">
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High</option>
+                        <option value="low">Low</option>
+                    </select>
+                </div>
+
+                <div class="form-group" style="flex:1; min-width:140px;">
+                    <label for="task-due">Due Date (optional)</label>
+                    <input type="date" id="task-due" />
+                </div>
+
+                <div class="form-group" style="flex:1; min-width:140px;">
+                    <label for="task-parent">Subtask of (optional)</label>
+                    <select id="task-parent">
+                        <option value="">— Top-level task —</option>
+                        <!-- Populated by JS with existing tasks -->
+                    </select>
+                </div>
+            </div>
+
+            <button class="btn btn--primary" id="btn-add-task" onclick="createTask()">
+                Add Task
+            </button>
+        </div>
+
+        <!-- Task List Header -->
+        <div class="flex-between mt-8" style="margin-bottom:14px;">
+            <h2 style="font-size:1rem; font-weight:600;">Tasks</h2>
+            <span class="text-muted" id="task-count"></span>
+        </div>
+
+        <!-- Task list rendered here -->
+        <ul class="task-list" id="tasks-list"></ul>
+
+        <div class="empty-state hidden" id="tasks-empty">
+            <div class="empty-icon">✅</div>
+            <p>No tasks yet.<br/>Add your first task above to get started.</p>
+        </div>
+
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script src="js/tasks.js"></script>
+
+</body>
+</html>
