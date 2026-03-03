@@ -1,14 +1,11 @@
 """
-Layer 3.3 — Workflow Proposal routes.
+Layer 3.3 & 3.4 — Workflow Proposal & Approval routes.
 
-Provides POST /life-events/propose-workflow.
-Mounted under the /life-events prefix in main.py alongside nlp_routes.
+Provides:
+  - POST /life-events/propose-workflow (Read-only generation)
+  - POST /life-events/approve-workflow (DB persistence)
 
-Rules enforced here:
-  - No DB writes.
-  - No task auto-creation.
-  - No scheduler modification.
-  - Returns JSON only; validated by Pydantic before response.
+Mounted under the /life-events prefix in main.py.
 """
 
 import logging

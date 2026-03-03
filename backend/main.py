@@ -21,9 +21,11 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI(title="Pathfinder AI - Backend", lifespan=lifespan)
 
 # Add CORS middleware
+# Note: allow_origins=["*"] is restricted when allow_credentials=True
+# In production, Replace with explicit frontend URLs (e.g. ["http://localhost:5173"])
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, specify actual origins
+    allow_origin_regex="http://localhost:.*",  # Allow any local port for dev
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

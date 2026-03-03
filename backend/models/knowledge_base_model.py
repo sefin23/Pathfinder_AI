@@ -3,7 +3,7 @@ Layer 3.2 — Knowledge Base model.
 
 Each row is one curated requirement (a document chunk) associated with a
 specific life-event type. The embedding column stores a JSON-serialised
-list of floats produced by Gemini text-embedding-004 (768 dimensions).
+list of floats produced by Gemini gemini-embedding-001 (3072 dimensions).
 
 Embeddings are stored in the DB so retrieval is entirely database-based —
 no web scraping, no external vector stores at query time.

@@ -2,7 +2,7 @@
 Layer 3.2 — Requirement Retrieval Service (RAG).
 
 Pipeline:
-  1. embed_text()          — generate a 768-dim vector via Gemini embedding API
+  1. embed_text()          — generate a 3072-dim vector via Gemini embedding API
   2. retrieve()            — cosine similarity search over the knowledge_base table
   3. explain_with_llm()    — Gemini explains retrieved chunks; no guessing beyond them
   4. rag_query()           — orchestrates the full RAG pipeline
@@ -39,8 +39,8 @@ logger = logging.getLogger(__name__)
 # Constants
 # ---------------------------------------------------------------------------
 
-_EMBEDDING_MODEL = "models/gemini-embedding-001"     # 3072-dim, multilingual
-_EXPLANATION_MODEL = "models/gemini-2.5-flash-lite"  # separate quota from 2.0-flash
+_EMBEDDING_MODEL = "gemini-embedding-001"     # 3072-dim, multilingual
+_EXPLANATION_MODEL = "gemini-2.5-flash-lite"  # separate quota from 2.0-flash
 _DEFAULT_TOP_K = 3
 
 _GROUNDED_SYSTEM_PROMPT = """\
@@ -218,7 +218,7 @@ def retrieve(
 
 
 # ---------------------------------------------------------------------------
-# Grounded LLM explanation — powered by OpenRouter
+# Grounded LLM explanation — powered by Gemini
 # ---------------------------------------------------------------------------
 
 def explain_with_llm(
@@ -226,7 +226,7 @@ def explain_with_llm(
     chunks: list[RetrievedChunk],
 ) -> RAGExplanation:
     """
-    Use OpenRouter (Llama 3.3 70B, free tier) to explain retrieved chunks.
+    Use Gemini (2.5 Flash Lite) to explain retrieved chunks.
 
     The model is given ONLY the retrieved content via a strict system prompt
     — it may not use outside knowledge.
@@ -239,7 +239,7 @@ def explain_with_llm(
         :class:`RAGExplanation` with explanation text and source IDs.
 
     Raises:
-        RuntimeError: If the OpenRouter API call fails.
+        RuntimeError: If the Gemini API call fails.
     """
     if not chunks:
         return RAGExplanation(

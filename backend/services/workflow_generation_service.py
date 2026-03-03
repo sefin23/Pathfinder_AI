@@ -44,7 +44,7 @@ logger = logging.getLogger(__name__)
 # Constants
 # ---------------------------------------------------------------------------
 
-_GENERATION_MODEL = "models/gemini-2.5-flash-lite"
+_GENERATION_MODEL = "gemini-2.5-flash-lite"
 
 _WORKFLOW_SYSTEM_PROMPT = """\
 You are Pathfinder AI, a life-event workflow planner.
@@ -248,17 +248,28 @@ def _parse_tasks(data: dict) -> tuple[list[ProposedTask], Optional[str]]:
 
     tasks: list[ProposedTask] = []
     for raw_task in raw_tasks:
-        subtasks = [
-            ProposedSubtask(
-                title=s["title"],
-                priority=max(1, min(5, int(s.get("priority", 3)))),
-                suggested_due_offset_days=max(0, int(s.get("suggested_due_offset_days", 0))),
+        # Guard against LLM omitting title
+        task_title = raw_task.get("title")
+        if not task_title:
+            continue
+
+        raw_subtasks = raw_task.get("subtasks", [])
+        subtasks: list[ProposedSubtask] = []
+        for s in raw_subtasks:
+            sub_title = s.get("title")
+            if not sub_title:
+                continue
+            subtasks.append(
+                ProposedSubtask(
+                    title=sub_title,
+                    priority=max(1, min(5, int(s.get("priority", 3)))),
+                    suggested_due_offset_days=max(0, int(s.get("suggested_due_offset_days", 0))),
+                )
             )
-            for s in raw_task.get("subtasks", [])
-        ]
+
         tasks.append(
             ProposedTask(
-                title=raw_task["title"],
+                title=task_title,
                 description=raw_task.get("description", ""),
                 priority=max(1, min(5, int(raw_task.get("priority", 3)))),
                 suggested_due_offset_days=max(
